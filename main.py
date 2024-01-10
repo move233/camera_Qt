@@ -5,14 +5,14 @@ import time
 import cv2
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtGui import QImage, QPixmap
-from PyQt6.QtCore import QTimer,Qt
+from PyQt6.QtCore import QTimer, Qt
 
 import camera_settings
 from camera_settings import Ui_Window
 import cam
-from design import Ui_MainWindow  # 导入从 .ui 文件生成的类
+from gui_design import Ui_MainWindow  # 导入从 .ui 文件生成的类
 from cam import *
-#这样可以直接调用camera.py中的函数并实体化类
+#这样可以直接调用cam.py中的函数并实体化类
 class MainApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -57,10 +57,10 @@ class MainApp(QMainWindow, Ui_MainWindow):
     #更新帧的函数，真实情况这里需要调用相机函数获取当前帧，这个函数里现在六个图像都是一样的，实际需要处理
     def update_frame(self):
         #这里的frame可以设置为相机的原始数据，如果需要保存当前数据的功能，可以调用self.frame1/frame2...来访问
-        ret,self.frame1=self.cap.read()
+        ret, self.frame1 = self.cap.read()
         if self.frame1 is not None:
             self.frame1 = cv2.cvtColor(self.frame1, cv2.COLOR_BGR2GRAY)
-            self.frame2=self.frame1
+            self.frame2 = self.frame1
             self.frame3 = self.frame1
             self.frame4 = self.frame1
             self.frame5 = self.frame1
@@ -101,7 +101,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
     #如果录像flag为False，则开始录像，初始化输出的
     def recording(self):
         if not self.rec_flag:
-            self.rec_flag=True
+            self.rec_flag = True
             fourcc = cv2.VideoWriter_fourcc(*'XVID')
             fps = 20.0
             frame_size = (self.frame1.shape[1], self.frame1.shape[0])
@@ -116,7 +116,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
         print("capture")
     #启动计时器，开始显示
     def start_camera(self):
-        self.cap = cv2.VideoCapture('1.1.mp4')
+        self.cap = cv2.VideoCapture('1.1.mp4')#链接到视频1.1.mp4
         self.timer.start(30)
         print("start cam.py")
         # 启动相机的逻辑
