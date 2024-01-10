@@ -4,4 +4,3 @@ class camera:
     #def opencamera(self):
     print("qtgui_update")
     print("nnjj ")
-    #def get_current_frame(self):
