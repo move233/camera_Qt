@@ -10,7 +10,7 @@ from PyQt6.QtCore import QTimer, Qt
 import camera_settings
 from camera_settings import Ui_Window
 import cam
-from gui_design import Ui_MainWindow  # 导入从 .ui 文件生成的类
+from gui import Ui_MainWindow  # 导入从 .ui 文件生成的类
 from cam import *
 #这样可以直接调用cam.py中的函数并实体化类
 class MainApp(QMainWindow, Ui_MainWindow):
@@ -33,8 +33,8 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.capture_button.clicked.connect(self.capture)
         self.camera_setting_button.clicked.connect(self.camera_setting)
         self.recording_button.clicked.connect(self.recording)
-        self.stop_button.clicked.connect(self.stop)
-        self.stop_rec_button.clicked.connect(self.stop_rec)
+        # self.stop_button.clicked.connect(self.stop)
+        # self.stop_rec_button.clicked.connect(self.stop_rec)
         # ... 其他控件的信号槽连接 ...
         self.timer = QTimer(self)#计时器，用来控制update_frame的循环调用的频率，在start_camera函数中启动这个计时器，这里只做初始化
         self.timer.timeout.connect(self.update_frame)
