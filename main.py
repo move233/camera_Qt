@@ -39,6 +39,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.timer = QTimer(self)#计时器，用来控制update_frame的循环调用的频率，在start_camera函数中启动这个计时器，这里只做初始化
         self.timer.timeout.connect(self.update_frame)
     def camera_setting(self):
+        # 判断对象是否有包含的属性，判断是否出现'camera_settings_window'
         if not hasattr(self, 'camera_settings_window'):
             self.camera_settings_window = Ui_Window()
             self.camera_settings_window.setupUi(self.camera_settings_window)
@@ -47,6 +48,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
     #停止计时器，即停止视频显示
     def setting(self):
         print("子菜单")
+    #     添加相机设置的具体功能
     def stop(self):
         self.timer.stop()
     def stop_rec(self):
