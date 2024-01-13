@@ -29,15 +29,15 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.frame6=None
         # 连接按钮等控件的信号与槽
 
-        self.connect_button.clicked.connect(self.start_camera)
+        self.connect_button.clicked.connect(self.start_stop_camera)
         self.capture_button.clicked.connect(self.capture)
         self.camera_setting_button.clicked.connect(self.camera_setting)
         self.recording_button.clicked.connect(self.recording)
-        # self.stop_button.clicked.connect(self.stop)
-        # self.stop_rec_button.clicked.connect(self.stop_rec)
         # ... 其他控件的信号槽连接 ...
         self.timer = QTimer(self)#计时器，用来控制update_frame的循环调用的频率，在start_camera函数中启动这个计时器，这里只做初始化
         self.timer.timeout.connect(self.update_frame)
+
+
     def camera_setting(self):
         # 判断对象是否有包含的属性，判断是否出现'camera_settings_window'
         if not hasattr(self, 'camera_settings_window'):
@@ -49,13 +49,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
     def setting(self):
         print("子菜单")
     #     添加相机设置的具体功能
-    def stop(self):
-        self.timer.stop()
-    def stop_rec(self):
-        self.rec_flag=False
-        if self.video_writer:
-            self.video_writer.release()
-        print("Stopped Recording")
+
     #更新帧的函数，真实情况这里需要调用相机函数获取当前帧，这个函数里现在六个图像都是一样的，实际需要处理
     def update_frame(self):
         #这里的frame可以设置为相机的原始数据，如果需要保存当前数据的功能，可以调用self.frame1/frame2...来访问
@@ -101,15 +95,24 @@ class MainApp(QMainWindow, Ui_MainWindow):
         scaled_pixmap6 = pixmap6.scaled(self.l6.size(), Qt.AspectRatioMode.KeepAspectRatio)
         self.l6.setPixmap(scaled_pixmap6)
     #如果录像flag为False，则开始录像，初始化输出的
-    def recording(self):
-        if not self.rec_flag:
-            self.rec_flag = True
-            fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            fps = 20.0
-            frame_size = (self.frame1.shape[1], self.frame1.shape[0])
-            self.video_writer = cv2.VideoWriter('output.avi', fourcc, fps, frame_size, False)
 
-            print("Started Recording")
+    def start_stop_camera(self):
+        if self.connect_button.text() == '连接相机':
+            self.start_camera()
+        else:
+            self.stop_camera()
+    def start_camera(self):
+        self.cap = cv2.VideoCapture('1.1.mp4')#链接到视频1.1.mp4
+        self.timer.start(30)
+        print("start cam.py")
+        self.connect_button.setText('停止相机')
+        # 启动相机的逻辑
+        #self.cam.py.start_camera()
+        # 更新UI或其他操作
+    def stop_camera(self):
+        self.timer.stop()
+        self.connect_button.setText('连接相机')
+    # 定义其他方法，例如更新UI显示视频流等
 
     def capture(self):
         #只演示了frame1
@@ -117,15 +120,28 @@ class MainApp(QMainWindow, Ui_MainWindow):
             cv2.imwrite("frame1.jpg", self.frame1)
         print("capture")
     #启动计时器，开始显示
-    def start_camera(self):
-        self.cap = cv2.VideoCapture('1.1.mp4')#链接到视频1.1.mp4
-        self.timer.start(30)
-        print("start cam.py")
-        # 启动相机的逻辑
-        #self.cam.py.start_camera()
-        # 更新UI或其他操作
 
-    # 定义其他方法，例如更新UI显示视频流等
+    def recording(self):
+        if self.recording_button.text() == '开始录制':
+            self.recording_start()
+        else:
+            self.recording_stop()
+    def recording_start(self):
+        if not self.rec_flag:
+            self.rec_flag = True
+            fourcc = cv2.VideoWriter_fourcc(*'XVID')
+            fps = 20.0
+            frame_size = (self.frame1.shape[1], self.frame1.shape[0])
+            self.video_writer = cv2.VideoWriter('output1.avi', fourcc, fps, frame_size, False)
+            print("Started Recording")
+            self.recording_button.setText('停止录制')
+    def recording_stop(self):
+        self.rec_flag=False
+        if self.video_writer:
+            self.video_writer.release()
+        print("Stopped Recording")
+        self.recording_button.setText('开始录制')
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
