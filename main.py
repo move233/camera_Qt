@@ -18,15 +18,15 @@ class MainApp(QMainWindow, Ui_MainWindow):
         super().__init__()
 
         self.setupUi(self)  # 设置UI
-        self.rec_flag=False
+        self.rec_flag = False
         #实体化相机类
         #self.camera=cam.camera()
-        self.frame1=None
-        self.frame2=None
-        self.frame3=None
-        self.frame4=None
-        self.frame5=None
-        self.frame6=None
+        self.frame1 = None
+        self.frame2 = None
+        self.frame3 = None
+        self.frame4 = None
+        self.frame5 = None
+        # self.frame6=None
         # 连接按钮等控件的信号与槽
 
         self.connect_button.clicked.connect(self.start_stop_camera)
@@ -60,7 +60,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
             self.frame3 = self.frame1
             self.frame4 = self.frame1
             self.frame5 = self.frame1
-            self.frame6 = self.frame1
+            # self.frame6 = self.frame1
             #如果现在的状态是正在录像，就把当前更新的帧写入文件中去
             if self.rec_flag:
                 self.video_writer.write(self.frame1)
@@ -75,25 +75,25 @@ class MainApp(QMainWindow, Ui_MainWindow):
         q_img3 = QImage(self.frame3.data, w, h, bytes_per_line, QImage.Format.Format_Grayscale8)
         q_img4 = QImage(self.frame4.data, w, h, bytes_per_line, QImage.Format.Format_Grayscale8)
         q_img5 = QImage(self.frame5.data, w, h, bytes_per_line, QImage.Format.Format_Grayscale8)
-        q_img6 = QImage(self.frame6.data, w, h, bytes_per_line, QImage.Format.Format_Grayscale8)
+        # q_img6 = QImage(self.frame6.data, w, h, bytes_per_line, QImage.Format.Format_Grayscale8)
         pixmap1 = QPixmap.fromImage(q_img1)
-        scaled_pixmap1 = pixmap1.scaled(self.l1.size(), Qt.AspectRatioMode.KeepAspectRatio)
-        self.l1.setPixmap(scaled_pixmap1)
+        scaled_pixmap1 = pixmap1.scaled(self.visible.size(), Qt.AspectRatioMode.KeepAspectRatio)
+        self.visible.setPixmap(scaled_pixmap1)
         pixmap2 = QPixmap.fromImage(q_img2)
-        scaled_pixmap2 = pixmap2.scaled(self.l2.size(), Qt.AspectRatioMode.KeepAspectRatio)
-        self.l2.setPixmap(scaled_pixmap2)
+        scaled_pixmap2 = pixmap2.scaled(self.function1.size(), Qt.AspectRatioMode.KeepAspectRatio)
+        self.function1.setPixmap(scaled_pixmap2)
         pixmap3 = QPixmap.fromImage(q_img3)
-        scaled_pixmap3 = pixmap3.scaled(self.l3.size(), Qt.AspectRatioMode.KeepAspectRatio)
-        self.l3.setPixmap(scaled_pixmap3)
+        scaled_pixmap3 = pixmap3.scaled(self.function2.size(), Qt.AspectRatioMode.KeepAspectRatio)
+        self.function2.setPixmap(scaled_pixmap3)
         pixmap4 = QPixmap.fromImage(q_img4)
-        scaled_pixmap4 = pixmap4.scaled(self.l4.size(), Qt.AspectRatioMode.KeepAspectRatio)
-        self.l4.setPixmap(scaled_pixmap4)
+        scaled_pixmap4 = pixmap4.scaled(self.function3.size(), Qt.AspectRatioMode.KeepAspectRatio)
+        self.function3.setPixmap(scaled_pixmap4)
         pixmap5 = QPixmap.fromImage(q_img5)
-        scaled_pixmap5 = pixmap5.scaled(self.l5.size(), Qt.AspectRatioMode.KeepAspectRatio)
-        self.l5.setPixmap(scaled_pixmap5)
-        pixmap6 = QPixmap.fromImage(q_img6)
-        scaled_pixmap6 = pixmap6.scaled(self.l6.size(), Qt.AspectRatioMode.KeepAspectRatio)
-        self.l6.setPixmap(scaled_pixmap6)
+        scaled_pixmap5 = pixmap5.scaled(self.function4.size(), Qt.AspectRatioMode.KeepAspectRatio)
+        self.function4.setPixmap(scaled_pixmap5)
+        # pixmap6 = QPixmap.fromImage(q_img6)
+        # scaled_pixmap6 = pixmap6.scaled(self.l6.size(), Qt.AspectRatioMode.KeepAspectRatio)
+        # self.l6.setPixmap(scaled_pixmap6)
     #如果录像flag为False，则开始录像，初始化输出的
 
     def start_stop_camera(self):
@@ -132,11 +132,11 @@ class MainApp(QMainWindow, Ui_MainWindow):
             fourcc = cv2.VideoWriter_fourcc(*'XVID')
             fps = 20.0
             frame_size = (self.frame1.shape[1], self.frame1.shape[0])
-            self.video_writer = cv2.VideoWriter('output1.avi', fourcc, fps, frame_size, False)
+            self.video_writer = cv2.VideoWriter('output.avi', fourcc, fps, frame_size, False)
             print("Started Recording")
             self.recording_button.setText('停止录制')
     def recording_stop(self):
-        self.rec_flag=False
+        self.rec_flag = False
         if self.video_writer:
             self.video_writer.release()
         print("Stopped Recording")
