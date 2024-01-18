@@ -102,15 +102,19 @@ class MainApp(QMainWindow, Ui_MainWindow):
         else:
             self.stop_camera()
     def start_camera(self):
-        self.cap = cv2.VideoCapture('1.1.mp4')#链接到视频1.1.mp4
+        self.cap = cv2.VideoCapture(1)#连接到摄像头1
         self.timer.start(30)
         print("start cam.py")
+        text_start = "相机已连接"
+        self.feedback_information.append(text_start)
         self.connect_button.setText('停止相机')
         # 启动相机的逻辑
         #self.cam.py.start_camera()
         # 更新UI或其他操作
     def stop_camera(self):
         self.timer.stop()
+        text_start = "相机已停止"
+        self.feedback_information.append(text_start)
         self.connect_button.setText('连接相机')
     # 定义其他方法，例如更新UI显示视频流等
 
@@ -119,6 +123,8 @@ class MainApp(QMainWindow, Ui_MainWindow):
         if self.frame1 is not None:
             cv2.imwrite("frame1.jpg", self.frame1)
         print("capture")
+        text_start = "图片已保存"
+        self.feedback_information.append(text_start)
     #启动计时器，开始显示
 
     def recording(self):
@@ -134,12 +140,16 @@ class MainApp(QMainWindow, Ui_MainWindow):
             frame_size = (self.frame1.shape[1], self.frame1.shape[0])
             self.video_writer = cv2.VideoWriter('output.avi', fourcc, fps, frame_size, False)
             print("Started Recording")
+            text_start = "开始录制"
+            self.feedback_information.append(text_start)
             self.recording_button.setText('停止录制')
     def recording_stop(self):
         self.rec_flag = False
         if self.video_writer:
             self.video_writer.release()
         print("Stopped Recording")
+        text_start = "结束录制"
+        self.feedback_information.append(text_start)
         self.recording_button.setText('开始录制')
 
 

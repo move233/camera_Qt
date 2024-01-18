@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>650</width>
-    <height>430</height>
+    <height>393</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -82,19 +82,6 @@
       <normaloff>图标/录制视频.png</normaloff>图标/录制视频.png</iconset>
     </property>
    </widget>
-   <widget class="QLabel" name="feedback_information">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>200</width>
-      <height>150</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>feedback_information</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="visible">
     <property name="geometry">
      <rect>
@@ -104,8 +91,13 @@
       <height>150</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: rgb(255, 255, 255); 
+}</string>
+    </property>
     <property name="text">
-     <string>visible</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="function4">
@@ -117,8 +109,13 @@
       <height>150</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: rgb(255, 255, 255); 
+}</string>
+    </property>
     <property name="text">
-     <string>function4</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="function1">
@@ -130,8 +127,13 @@
       <height>150</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: rgb(255, 255, 255); 
+}</string>
+    </property>
     <property name="text">
-     <string>function1</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="function2">
@@ -143,8 +145,13 @@
       <height>150</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: rgb(255, 255, 255); 
+}</string>
+    </property>
     <property name="text">
-     <string>function2</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="function3">
@@ -156,8 +163,13 @@
       <height>150</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+    background-color: rgb(255, 255, 255); 
+}</string>
+    </property>
     <property name="text">
-     <string>function3</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="function1_name">
@@ -232,11 +244,20 @@
      <string> function4_name</string>
     </property>
    </widget>
+   <widget class="QTextEdit" name="feedback_information">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>201</width>
+      <height>151</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>camera_setting_button</zorder>
    <zorder>connect_button</zorder>
    <zorder>capture_button</zorder>
    <zorder>recording_button</zorder>
-   <zorder>feedback_information</zorder>
    <zorder>visible</zorder>
    <zorder>function4</zorder>
    <zorder>function1</zorder>
@@ -246,22 +267,7 @@
    <zorder>function1_name</zorder>
    <zorder>function4_name</zorder>
    <zorder>function3_name</zorder>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>650</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menucamera">
-    <property name="title">
-     <string>camera</string>
-    </property>
-   </widget>
-   <addaction name="menucamera"/>
+   <zorder>feedback_information</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
